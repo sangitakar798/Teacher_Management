@@ -61,8 +61,8 @@ export default function DashboardOverview({ teachers, paymentRecords, onPayTeach
     <div className="space-y-6">
       {/* Welcome Section */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">
-        <h1 className="text-3xl font-bold mb-2">Welcome to EduManage Pro</h1>
-        <p className="text-blue-100 mb-4">Your comprehensive teacher management and payment system</p>
+        <h1 className="text-3xl font-bold mb-2">Welcome to Teacher Management</h1>
+        {/* <p className="text-blue-100 mb-4">Your comprehensive teacher management and payment system</p> */}
         <div className="flex items-center space-x-4 text-sm">
           <div className="flex items-center">
             <Calendar className="w-4 h-4 mr-1" />
@@ -151,7 +151,7 @@ export default function DashboardOverview({ teachers, paymentRecords, onPayTeach
                   <div>
                     <h3 className="font-semibold text-gray-900">{payment.teacherName || "System Payment"}</h3>
                     <p className="text-sm text-gray-600">{payment.description}</p>
-                    <p className="text-xs text-gray-500">{new Date(payment.date).toLocaleDateString()}</p>
+                    {/* <p className="text-xs text-gray-500">{new Date(payment.date).toLocaleDateString()}</p> */}
                   </div>
                   <div className="text-right">
                     <p className="font-bold text-gray-900">${payment.amount.toLocaleString()}</p>

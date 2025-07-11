@@ -9,14 +9,16 @@ interface NavbarProps {
   showBackButton?: boolean
   onBackClick?: () => void
   currentPage?: "dashboard" | "teachers" | "payments" | "payment-process"
+  disabled?: boolean // Add this prop
 }
 
 export default function Navbar({
-  title = "EduManage Pro",
+  title = "Teacher Management",
   subtitle = "Teacher Management & Payment System",
   showBackButton = false,
   onBackClick,
   currentPage = "dashboard",
+  disabled = false, // Add this prop
 }: NavbarProps) {
   const getBreadcrumb = () => {
     switch (currentPage) {
@@ -58,12 +60,13 @@ export default function Navbar({
 
           <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Navigation Links - Hidden on mobile during payment process */}
-            {currentPage !== "payment-process" && (
+            {currentPage !== "payment-process" && !disabled && (
               <div className="hidden md:flex items-center space-x-2">
                 <Button
                   variant="ghost"
                   size="sm"
                   className={currentPage === "dashboard" ? "bg-blue-50 text-blue-600" : "text-gray-600"}
+                  disabled={disabled}
                 >
                   <Home className="w-4 h-4 mr-2" />
                   Dashboard
@@ -72,6 +75,7 @@ export default function Navbar({
                   variant="ghost"
                   size="sm"
                   className={currentPage === "teachers" ? "bg-blue-50 text-blue-600" : "text-gray-600"}
+                  disabled={disabled}
                 >
                   <Users className="w-4 h-4 mr-2" />
                   Teachers
@@ -80,10 +84,20 @@ export default function Navbar({
                   variant="ghost"
                   size="sm"
                   className={currentPage === "payments" ? "bg-blue-50 text-blue-600" : "text-gray-600"}
+                  disabled={disabled}
                 >
                   <CreditCard className="w-4 h-4 mr-2" />
                   Payments
                 </Button>
+              </div>
+            )}
+
+            {/* Show payment process indicator */}
+            {currentPage === "payment-process" && (
+              <div className="hidden md:flex items-center space-x-2">
+                <div className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">
+                  🔒 Secure Payment in Progress
+                </div>
               </div>
             )}
 

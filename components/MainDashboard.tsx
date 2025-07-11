@@ -12,6 +12,14 @@ import DashboardOverview from "./DashboardOverview"
 import ReportsDashboard from "./ReportsDashboard"
 import CalendarDashboard from "./CalendarDashboard"
 
+// Utility function to ensure consistent date formatting
+const formatDate = (date: Date): string => {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, "0")
+  const day = String(date.getDate()).padStart(2, "0")
+  return `${year}-${month}-${day}` // YYYY-MM-DD
+}
+
 export default function MainDashboard() {
   const [teachers, setTeachers] = useState<Teacher[]>(mockTeachers)
   const [paymentRecords, setPaymentRecords] = useState<PaymentRecord[]>(mockPaymentRecords)
@@ -42,7 +50,6 @@ export default function MainDashboard() {
   }
 
   const handlePaymentSuccess = (paymentData: any) => {
-    // Add payment record
     const newPaymentRecord: PaymentRecord = {
       id: `PAY${Date.now()}`,
       teacherId: selectedTeacherForPayment?.id,
@@ -53,7 +60,7 @@ export default function MainDashboard() {
       currency: paymentData.currency,
       paymentType: paymentData.paymentType,
       description: paymentData.description,
-      date: new Date().toISOString().split("T")[0],
+      date: formatDate(new Date()),
       status: "completed",
       transactionId: paymentData.transactionId,
       method: paymentData.method.name,
@@ -61,12 +68,11 @@ export default function MainDashboard() {
 
     setPaymentRecords([newPaymentRecord, ...paymentRecords])
 
-    // Update teacher's pending payment
     if (selectedTeacherForPayment) {
       setTeachers(
         teachers.map((t) =>
           t.id === selectedTeacherForPayment.id
-            ? { ...t, pendingPayment: 0, lastPaymentDate: new Date().toISOString().split("T")[0] }
+            ? { ...t, pendingPayment: 0, lastPaymentDate: formatDate(new Date()) }
             : t,
         ),
       )
@@ -116,7 +122,6 @@ export default function MainDashboard() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
       <Sidebar
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -125,13 +130,8 @@ export default function MainDashboard() {
         isCollapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
-
-      {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Navbar */}
         <Navbar currentPage={activeTab as any} />
-
-        {/* Content */}
         <main className="flex-1 overflow-y-auto">
           <div className="p-6">{renderContent()}</div>
         </main>

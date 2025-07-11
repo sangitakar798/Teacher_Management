@@ -28,6 +28,7 @@ interface SidebarProps {
   paymentRecords: any[]
   isCollapsed?: boolean
   onToggleCollapse?: () => void
+  disabled?: boolean // Add this prop
 }
 
 export default function Sidebar({
@@ -37,6 +38,7 @@ export default function Sidebar({
   paymentRecords,
   isCollapsed = false,
   onToggleCollapse,
+  disabled = false, // Add this prop
 }: SidebarProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
@@ -145,7 +147,7 @@ export default function Sidebar({
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 font-poppins">EduManage</h2>
+              {/* <h2 className="text-lg font-bold text-gray-900 font-poppins">EduManage</h2> */}
               <p className="text-xs text-gray-500">Teacher Management</p>
             </div>
           )}
@@ -187,8 +189,9 @@ export default function Sidebar({
                   variant={activeTab === item.id ? "default" : "ghost"}
                   className={`w-full justify-start h-10 ${
                     activeTab === item.id ? "bg-blue-600 text-white shadow-md" : "text-gray-700 hover:bg-gray-100"
-                  } ${isCollapsed ? "px-2" : "px-3"}`}
-                  onClick={() => onTabChange(item.id)}
+                  } ${isCollapsed ? "px-2" : "px-3"} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                  onClick={() => !disabled && onTabChange(item.id)}
+                  disabled={disabled}
                 >
                   <item.icon
                     className={`w-4 h-4 ${isCollapsed ? "" : "mr-3"} ${
@@ -237,8 +240,9 @@ export default function Sidebar({
                   key={action.id}
                   variant="outline"
                   size="sm"
-                  className="w-full justify-start h-8 text-xs bg-transparent"
-                  onClick={action.action}
+                  className={`w-full justify-start h-8 text-xs bg-transparent ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                  onClick={() => !disabled && action.action()}
+                  disabled={disabled}
                 >
                   <div className={`w-2 h-2 rounded-full ${action.color} mr-2`} />
                   {action.label}
