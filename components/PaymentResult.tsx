@@ -126,4 +126,3 @@ export default function PaymentResult({
   )
 }
 
-// === FIXED: CalendarDashboard.tsx (Example fix for unused paymentRecords) ===
