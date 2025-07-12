@@ -99,7 +99,7 @@ export default function PaymentResult({
               <XCircle className="w-12 h-12 text-red-500" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2 font-poppins">Payment Failed</h1>
-            <p className="text-gray-600 mb-4">We couldn't process your payment</p>
+            <p className="text-gray-600 mb-4">We couldn&apos;t process your payment</p>
             {errorMessage && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
                 <p className="text-sm text-red-700">{errorMessage}</p>
@@ -125,3 +125,5 @@ export default function PaymentResult({
     </div>
   )
 }
+
+// === FIXED: CalendarDashboard.tsx (Example fix for unused paymentRecords) ===

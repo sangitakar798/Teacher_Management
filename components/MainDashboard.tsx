@@ -12,6 +12,18 @@ import DashboardOverview from "./DashboardOverview"
 import ReportsDashboard from "./ReportsDashboard"
 import CalendarDashboard from "./CalendarDashboard"
 
+// Payment data interface for type safety
+interface PaymentData {
+  amount: number
+  currency: string
+  paymentType: string
+  description: string
+  transactionId: string
+  method: {
+    name: string
+  }
+}
+
 // Utility function to ensure consistent date formatting
 const formatDate = (date: Date): string => {
   const year = date.getFullYear()
@@ -49,7 +61,7 @@ export default function MainDashboard() {
     setShowPaymentInterface(true)
   }
 
-  const handlePaymentSuccess = (paymentData: any) => {
+   const handlePaymentSuccess = (paymentData: any) => {
     const newPaymentRecord: PaymentRecord = {
       id: `PAY${Date.now()}`,
       teacherId: selectedTeacherForPayment?.id,

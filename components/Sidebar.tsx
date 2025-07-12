@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import type { Teacher, PaymentRecord } from "@/lib/types"
 import {
   Home,
   Users,
@@ -24,11 +25,11 @@ import {
 interface SidebarProps {
   activeTab: string
   onTabChange: (tab: string) => void
-  teachers: any[]
-  paymentRecords: any[]
+  teachers: Teacher[]
+  paymentRecords: PaymentRecord[]
   isCollapsed?: boolean
   onToggleCollapse?: () => void
-  disabled?: boolean // Add this prop
+  disabled?: boolean
 }
 
 export default function Sidebar({
@@ -38,7 +39,7 @@ export default function Sidebar({
   paymentRecords,
   isCollapsed = false,
   onToggleCollapse,
-  disabled = false, // Add this prop
+  disabled = false,
 }: SidebarProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
@@ -147,7 +148,6 @@ export default function Sidebar({
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <div>
-              {/* <h2 className="text-lg font-bold text-gray-900 font-poppins">EduManage</h2> */}
               <p className="text-xs text-gray-500">Teacher Management</p>
             </div>
           )}
