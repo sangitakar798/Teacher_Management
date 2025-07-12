@@ -4,25 +4,13 @@ import { useState } from "react"
 import type { Teacher, PaymentRecord } from "@/lib/types"
 import { mockTeachers, mockPaymentRecords } from "@/lib/mockData"
 import Sidebar from "./Sidebar"
-// import Navbar from "./Navbar"
+import Navbar from "./Navbar"
 import TeacherDashboard from "./TeacherDashboard"
 import PaymentDashboard from "./PaymentDashboard"
 import PaymentInterface from "./PaymentInterface"
 import DashboardOverview from "./DashboardOverview"
 import ReportsDashboard from "./ReportsDashboard"
 import CalendarDashboard from "./CalendarDashboard"
-
-// Payment data interface for type safety
-// interface PaymentData {
-//   amount: number
-//   currency: string
-//   paymentType: string
-//   description: string
-//   transactionId: string
-//   method: {
-//     name: string
-//   }
-// }
 
 // Utility function to ensure consistent date formatting
 const formatDate = (date: Date): string => {
@@ -61,7 +49,7 @@ export default function MainDashboard() {
     setShowPaymentInterface(true)
   }
 
-   const handlePaymentSuccess = (paymentData: any) => {
+  const handlePaymentSuccess = (paymentData: any) => {
     const newPaymentRecord: PaymentRecord = {
       id: `PAY${Date.now()}`,
       teacherId: selectedTeacherForPayment?.id,
@@ -143,7 +131,7 @@ export default function MainDashboard() {
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* <Navbar currentPage={activeTab as any} /> */}
+        <Navbar currentPage={activeTab as any} />
         <main className="flex-1 overflow-y-auto">
           <div className="p-6">{renderContent()}</div>
         </main>
