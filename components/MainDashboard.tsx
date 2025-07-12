@@ -4,7 +4,6 @@ import { useState } from "react"
 import type { Teacher, PaymentRecord } from "@/lib/types"
 import { mockTeachers, mockPaymentRecords } from "@/lib/mockData"
 import Sidebar from "./Sidebar"
-import Navbar from "./Navbar"
 import TeacherDashboard from "./TeacherDashboard"
 import PaymentDashboard from "./PaymentDashboard"
 import PaymentInterface from "./PaymentInterface"
@@ -49,38 +48,50 @@ export default function MainDashboard() {
     setShowPaymentInterface(true)
   }
 
-  const handlePaymentSuccess = (paymentData: any) => {
-    const newPaymentRecord: PaymentRecord = {
-      id: `PAY${Date.now()}`,
-      teacherId: selectedTeacherForPayment?.id,
-      teacherName: selectedTeacherForPayment
-        ? `${selectedTeacherForPayment.firstName} ${selectedTeacherForPayment.lastName}`
-        : undefined,
-      amount: paymentData.amount,
-      currency: paymentData.currency,
-      paymentType: paymentData.paymentType,
-      description: paymentData.description,
-      date: formatDate(new Date()),
-      status: "completed",
-      transactionId: paymentData.transactionId,
-      method: paymentData.method.name,
-    }
-
-    setPaymentRecords([newPaymentRecord, ...paymentRecords])
-
-    if (selectedTeacherForPayment) {
-      setTeachers(
-        teachers.map((t) =>
-          t.id === selectedTeacherForPayment.id
-            ? { ...t, pendingPayment: 0, lastPaymentDate: formatDate(new Date()) }
-            : t,
-        ),
-      )
-    }
-
-    setShowPaymentInterface(false)
-    setSelectedTeacherForPayment(null)
+ type PaymentData = {
+  amount: number
+  currency: string
+  paymentType: PaymentRecord["paymentType"]
+  description: string
+  transactionId: string
+  method: {
+    name: string
   }
+}
+
+const handlePaymentSuccess = (paymentData: PaymentData) => {
+  const newPaymentRecord: PaymentRecord = {
+    id: `PAY${Date.now()}`,
+    teacherId: selectedTeacherForPayment?.id,
+    teacherName: selectedTeacherForPayment
+      ? `${selectedTeacherForPayment.firstName} ${selectedTeacherForPayment.lastName}`
+      : undefined,
+    amount: paymentData.amount,
+    currency: paymentData.currency,
+    paymentType: paymentData.paymentType,
+    description: paymentData.description,
+    date: formatDate(new Date()),
+    status: "completed",
+    transactionId: paymentData.transactionId,
+    method: paymentData.method.name,
+  }
+
+  setPaymentRecords([newPaymentRecord, ...paymentRecords])
+
+  if (selectedTeacherForPayment) {
+    setTeachers(
+      teachers.map((t) =>
+        t.id === selectedTeacherForPayment.id
+          ? { ...t, pendingPayment: 0, lastPaymentDate: formatDate(new Date()) }
+          : t,
+      ),
+    )
+  }
+
+  setShowPaymentInterface(false)
+  setSelectedTeacherForPayment(null)
+}
+
 
   if (showPaymentInterface) {
     return (
@@ -131,7 +142,7 @@ export default function MainDashboard() {
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Navbar currentPage={activeTab as any} />
+        {/* <Navbar currentPage={activeTab as any} /> */}
         <main className="flex-1 overflow-y-auto">
           <div className="p-6">{renderContent()}</div>
         </main>
