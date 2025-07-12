@@ -13,16 +13,16 @@ import ReportsDashboard from "./ReportsDashboard"
 import CalendarDashboard from "./CalendarDashboard"
 
 // Payment data interface for type safety
-interface PaymentData {
-  amount: number
-  currency: string
-  paymentType: string
-  description: string
-  transactionId: string
-  method: {
-    name: string
-  }
-}
+// interface PaymentData {
+//   amount: number
+//   currency: string
+//   paymentType: string
+//   description: string
+//   transactionId: string
+//   method: {
+//     name: string
+//   }
+// }
 
 // Utility function to ensure consistent date formatting
 const formatDate = (date: Date): string => {
@@ -143,7 +143,7 @@ export default function MainDashboard() {
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Navbar currentPage={activeTab as any} />
+        {/* <Navbar currentPage={activeTab as any} /> */}
         <main className="flex-1 overflow-y-auto">
           <div className="p-6">{renderContent()}</div>
         </main>

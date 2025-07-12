@@ -9,7 +9,7 @@ interface CalendarDashboardProps {
 }
 
 export default function CalendarDashboard({ teachers, paymentRecords }: CalendarDashboardProps) {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  // const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   
   // Using paymentRecords to show payment events on calendar
   const paymentEvents = paymentRecords.map(record => ({
